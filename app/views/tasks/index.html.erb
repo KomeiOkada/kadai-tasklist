@@ -1,31 +1,20 @@
 <% if logged_in? %>
   <p>Logging in : <%= current_user.name %></p>
     
-  <% if @tasks.any? %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Status</th>
-          <th>Task</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @tasks.each do |task| %>
-          <tr>
-            <td><%= link_to task.id, task %></td>
-            <td><%= task.status %></td>
-            <td><%= task.content %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div>
-      <%= paginate @tasks %>
+  <div class="row">
+    <aside class="col-sm-4">
+      <%= form_with(model: @task, local: true) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :status, class: 'form-control', rows: 1 %>
+          <%= f.text_area :content, class: 'form-control', rows: 5 %>
+        </div>
+        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </aside>
+    <div class="col-sm-8">
+      <%= render 'tasks/tasks', tasks: @tasks %>
     </div>
-  <% end %>
-  
-  <%= link_to '新規タスクの投稿', new_task_path, class: "btn btn-primary" %>
+  </div>
   
 <% else %>
   <div class="center jumbotron">
