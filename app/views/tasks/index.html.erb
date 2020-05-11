@@ -1,6 +1,4 @@
 <% if logged_in? %>
-  <p>Logging in : <%= current_user.name %></p>
-    
   <div class="row">
     <aside class="col-sm-4">
       <%= form_with(model: @task, local: true) do |f| %>
