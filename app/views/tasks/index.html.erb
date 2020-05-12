@@ -1,6 +1,19 @@
 <% if logged_in? %>
-  <p>ログイン完了ユーザ: <%= current_user.name %></p>
+  <div class="row">
+    <aside class="col-sm-4">
+      <%= form_with(model: @task, local: true) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :status, class: 'form-control', :placeholder => "status", rows: 1 %>
+          <%= f.text_area :content, class: 'form-control', :placeholder => "Task", rows: 5 %>
+        </div>
+        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </aside>
+    <div class="col-sm-8">
+      <%= render 'tasks/tasks', tasks: @tasks %>
+    </div>
+  </div>
 <% else %>
   <p>未ログイン</p>
-  <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+  <!-- 本来なら表示されない画面 -->
 <% end %>
